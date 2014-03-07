@@ -23,7 +23,7 @@ func crypt(password []byte) ([]byte, error) {
 	return bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
 }
 
-func EqualPass(hashedPassword, password string) bool {
+func EqualPass(hashedPassword []byte, password string) bool {
 	return equalPass([]byte(hashedPassword), []byte(password))
 }
 
