@@ -33,7 +33,10 @@ func StartServer() {
 	auth := Authentication{}
 
 	handler.SetRoutes(
-		rest.RouteObjectMethod("GET", rootUri+"/users", &users, "GetAll"),
+		//login and create session!
+		rest.RouteObjectMethod("GET", rootUri+"/users", &users, "GetAllUsers"),
+		rest.RouteObjectMethod("GET", rootUri+"/users/:id", &users, "GetUserByID"),
+		rest.RouteObjectMethod("POST", rootUri+"/users", &users, "RegisterUser"),
 		rest.RouteObjectMethod("GET", rootUri+"/logout", &auth, "Logout"),
 	)
 
@@ -54,11 +57,11 @@ func PreRoutingMiddleware(handler rest.HandlerFunc) rest.HandlerFunc {
 
 	return func(writer *rest.ResponseWriter, request *rest.Request) {
 
-		authErr := BasicAuthenticationLogin(writer, request)
-		if authErr != nil {
-			//logger.ERRO.Println(authErr)
-			return
-		}
+		//authErr := BasicAuthenticationLogin(writer, request)
+		//if authErr != nil {
+		//logger.ERRO.Println(authErr)
+		//	return
+		//}
 
 		handler(writer, request)
 	}
