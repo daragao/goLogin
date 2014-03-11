@@ -3,6 +3,8 @@ package rest
 import (
 	//"../logger"
 	"../auth"
+	"../session"
+	"../users"
 	"github.com/ant0ine/go-json-rest"
 	"net/http"
 )
@@ -10,7 +12,33 @@ import (
 type Authentication struct {
 }
 
+func (authObj *Authentication) Login(writer *rest.ResponseWriter, request *rest.Request) {
+	userPostData := &Users{}
+	err := request.DecodeJsonPayload(userPostData)
+	if err != nil {
+		rest.Error(writer, "Could not register user: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	user, err := users.GetUserByUsername(userPostData.Username)
+	isLoggedIn := auth.EqualPass(user.GetPassword(), userPostData.Password)
+	if err != nil {
+		rest.Error(writer, "Invalid login", http.StatusInternalServerError)
+		return
+	}
+	if isLoggedIn {
+		newSession, _ := session.Get(request.Request)
+		newSession.Values["userId"] = user.Id
+		newSession.Save(request.Request, writer.ResponseWriter)
+		writer.WriteJson(userPostData)
+	} else {
+		rest.Error(writer, "Invalid login", http.StatusUnauthorized)
+	}
+}
+
 func (authObj *Authentication) Logout(writer *rest.ResponseWriter, request *rest.Request) {
+	userSession, _ := session.Get(request.Request)
+	session.Delete(userSession)
+	userSession.Save(request.Request, writer.ResponseWriter)
 	realm := "Administration"
 	Unauthorized(writer, realm)
 }

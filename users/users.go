@@ -13,6 +13,10 @@ type User struct {
 	password []byte
 }
 
+func (userStruct *User) GetPassword() []byte {
+	return userStruct.password
+}
+
 func GetUserByID(idArg int) (userRow *User, err error) {
 	row, err := db.GetRowBy("users", "id,username,password", "id", idArg)
 	userRow = &User{}

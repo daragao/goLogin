@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"../session"
 	"../users"
 	"github.com/ant0ine/go-json-rest"
 	"net/http"
@@ -11,6 +12,22 @@ type Users struct {
 	Username string
 	Password string
 	Offset   int
+}
+
+func (self *Users) GetCurrentUser(w *rest.ResponseWriter, r *rest.Request) {
+	currSession, _ := session.Get(r.Request)
+	userId := currSession.Values["userId"]
+	if userId != nil {
+		userRow, err := users.GetUserByID(userId.(int))
+		if err == nil {
+			w.WriteJson(userRow)
+			return
+		} else {
+			rest.Error(w, "User not logged in: "+err.Error(), http.StatusNotFound)
+			return
+		}
+	}
+	rest.Error(w, "User not logged in: failed to get session", http.StatusNotFound)
 }
 
 func (self *Users) GetUserByID(w *rest.ResponseWriter, r *rest.Request) {

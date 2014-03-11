@@ -35,8 +35,10 @@ func StartServer() {
 	handler.SetRoutes(
 		//login and create session!
 		rest.RouteObjectMethod("GET", rootUri+"/users", &users, "GetAllUsers"),
+		rest.RouteObjectMethod("GET", rootUri+"/users/0", &users, "GetCurrentUser"),
 		rest.RouteObjectMethod("GET", rootUri+"/users/:id", &users, "GetUserByID"),
 		rest.RouteObjectMethod("POST", rootUri+"/users", &users, "RegisterUser"),
+		rest.RouteObjectMethod("POST", rootUri+"/login", &auth, "Login"),
 		rest.RouteObjectMethod("GET", rootUri+"/logout", &auth, "Logout"),
 	)
 
