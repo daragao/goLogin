@@ -15,4 +15,4 @@ var timestamp_columns = ", date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP " //
 
 var create_users_table = "CREATE TABLE IF NOT EXISTS " + users_table_name +
 	" (id BIGSERIAL PRIMARY KEY,username varchar(32) NOT NULL UNIQUE," +
-	"password varchar(60) NOT NULL" + timestamp_columns + ");"
+	"password varchar(60) NOT NULL, is_admin boolean DEFAULT false" + timestamp_columns + ");"

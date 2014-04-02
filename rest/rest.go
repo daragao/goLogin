@@ -34,7 +34,7 @@ func StartServer() {
 
 	handler.SetRoutes(
 		//login and create session!
-		rest.RouteObjectMethod("GET", rootUri+"/users", &users, "GetCurrentUser"), //"GetAllUsers"),
+		rest.RouteObjectMethod("GET", rootUri+"/users", &users, "GetAllUsers"),
 		rest.RouteObjectMethod("GET", rootUri+"/users/:id", &users, "GetUserByID"),
 		rest.RouteObjectMethod("POST", rootUri+"/users", &users, "RegisterUser"),
 		rest.RouteObjectMethod("GET", rootUri+"/login", &users, "GetCurrentUser"),
@@ -46,14 +46,14 @@ func StartServer() {
 
 	http.ListenAndServe(":4000", &handler)
 	/*  // IF WE WANT TO USE NGINX
-	listener, err := net.Listen("tcp", "localhost:8080")
-	if err != nil {
-		logger.ERRO.Println(err)
-	}
-	err = fcgi.Serve(listener, &handler)
-	if err != nil {
-		logger.ERRO.Println(err)
-	}
+	    listener, err := net.Listen("tcp", "localhost:8080")
+	    if err != nil {
+	        logger.ERRO.Println(err)
+	    }
+	    err = fcgi.Serve(listener, &handler)
+	    if err != nil {
+	        logger.ERRO.Println(err)
+	    }
 	*/
 }
 
