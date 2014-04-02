@@ -1,7 +1,7 @@
 package rest
 
 import (
-	//"../logger"
+	"../logger"
 	"../auth"
 	"../session"
 	"../users"
@@ -23,14 +23,22 @@ func (authObj *Authentication) Login(writer *rest.ResponseWriter, request *rest.
 	isLoggedIn := auth.EqualPass(user.GetPassword(), userPostData.Password)
 	if err != nil {
 		rest.Error(writer, "Invalid login", http.StatusInternalServerError)
+        logger.ERRO.Println("Invalid login: %+v", user  );
 		return
 	}
 	if isLoggedIn {
 		newSession, _ := session.Get(request.Request)
 		newSession.Values["userId"] = user.Id
 		newSession.Save(request.Request, writer.ResponseWriter)
-		writer.WriteJson(userPostData)
+		userRow, err := users.GetUserByID(user.Id)
+		if err == nil {
+			writer.WriteJson(userRow)
+		} else {
+			rest.Error(writer, "User not logged in: "+err.Error(), http.StatusNotFound)
+		}
+		//writer.WriteJson(newSession)
 	} else {
+        logger.ERRO.Println("Invalid login: ", user );
 		rest.Error(writer, "Invalid login", http.StatusUnauthorized)
 	}
 }
@@ -40,6 +48,7 @@ func (authObj *Authentication) Logout(writer *rest.ResponseWriter, request *rest
 	session.Delete(userSession)
 	userSession.Save(request.Request, writer.ResponseWriter)
 	realm := "Administration"
+    //writer.WriteJson(`{"status": "off"}`)
 	Unauthorized(writer, realm)
 }
 
@@ -85,6 +94,6 @@ func BasicAuthenticationLogin(writer *rest.ResponseWriter,
 }
 
 func Unauthorized(writer *rest.ResponseWriter, realm string) {
-	writer.Header().Set("WWW-Authenticate", "Basic realm="+realm)
+	//writer.Header().Set("WWW-Authenticate", "Basic realm="+realm)
 	rest.Error(writer, "Not Authorized", http.StatusUnauthorized)
 }
