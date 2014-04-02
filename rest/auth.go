@@ -23,7 +23,6 @@ func (authObj *Authentication) Login(writer *rest.ResponseWriter, request *rest.
 	isLoggedIn := auth.EqualPass(user.GetPassword(), userPostData.Password)
 	if err != nil {
 		rest.Error(writer, "Invalid login", http.StatusInternalServerError)
-        logger.ERRO.Println("Invalid login: %+v", user  );
 		return
 	}
 	if isLoggedIn {
