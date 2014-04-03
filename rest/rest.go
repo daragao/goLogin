@@ -47,7 +47,7 @@ func StartServer() {
 		rest.RouteObjectMethod("GET", rootUri+"/logout", &auth, "Logout"),
 	)
 
-	http.ListenAndServe(":4000", &handler)
+	http.ListenAndServe(":"+os.Getenv("PORT"), &handler)
 	/*  // IF WE WANT TO USE NGINX
 	    listener, err := net.Listen("tcp", "localhost:8080")
 	    if err != nil {
