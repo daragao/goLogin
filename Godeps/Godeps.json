@@ -1,0 +1,37 @@
+{
+	"ImportPath": "github.com/daragao/goLogin",
+	"GoVersion": "go1.2",
+	"Deps": [
+		{
+			"ImportPath": "code.google.com/p/go.crypto/bcrypt",
+			"Comment": "null-192",
+			"Rev": "2990fc550b9ff92bc33c848f92c87a305ae62934"
+		},
+		{
+			"ImportPath": "code.google.com/p/go.crypto/blowfish",
+			"Comment": "null-192",
+			"Rev": "2990fc550b9ff92bc33c848f92c87a305ae62934"
+		},
+		{
+			"ImportPath": "github.com/ant0ine/go-json-rest/rest",
+			"Comment": "v2.0.0-2-gd39a8e4",
+			"Rev": "d39a8e4a8cec2071b5ba6ac5eed7e489a23a3c43"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Rev": "1be7a086a5fd6440ef16fe96baeda0c78282b980"
+		},
+		{
+			"ImportPath": "github.com/gorilla/securecookie",
+			"Rev": "972f32923fd3555b7f0ea39acdc4e3d4d5412ee8"
+		},
+		{
+			"ImportPath": "github.com/gorilla/sessions",
+			"Rev": "c5bbe9d3d3c906d01de60189e5bfbba1d8164a80"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Rev": "f08bb026e0d6b644cad24d850d13352cc47400c5"
+		}
+	]
+}
