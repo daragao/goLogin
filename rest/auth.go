@@ -1,11 +1,11 @@
 package rest
 
 import (
-	"../logger"
-	"../auth"
-	"../session"
-	"../users"
 	"github.com/ant0ine/go-json-rest"
+	"github.com/daragao/goLogin/auth"
+	"github.com/daragao/goLogin/logger"
+	"github.com/daragao/goLogin/session"
+	"github.com/daragao/goLogin/users"
 	"net/http"
 )
 
@@ -37,7 +37,7 @@ func (authObj *Authentication) Login(writer *rest.ResponseWriter, request *rest.
 		}
 		//writer.WriteJson(newSession)
 	} else {
-        logger.ERRO.Println("Invalid login: ", user );
+		logger.ERRO.Println("Invalid login: ", user)
 		rest.Error(writer, "Invalid login", http.StatusUnauthorized)
 	}
 }
@@ -47,7 +47,7 @@ func (authObj *Authentication) Logout(writer *rest.ResponseWriter, request *rest
 	session.Delete(userSession)
 	userSession.Save(request.Request, writer.ResponseWriter)
 	realm := "Administration"
-    //writer.WriteJson(`{"status": "off"}`)
+	//writer.WriteJson(`{"status": "off"}`)
 	Unauthorized(writer, realm)
 }
 
