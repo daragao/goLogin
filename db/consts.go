@@ -6,8 +6,10 @@ var dbVars = struct {
 	password string
 }{"goGeteon", "goUser", "goUser"}
 
-var connection_string = "host=localhost user=postgres password='flipflop' " +
-	"dbname=mydb"
+//var connection_string = "host=localhost user=postgres password='flipflop' " +
+//	"dbname=mydb"
+var connection_string = "host=ec2-54-225-255-208.compute-1.amazonaws.com user=ekbsjwmuusakrv password='Rhiuimvu1Yy3xXVhhPFXEX2CHx' " +
+	"dbname=d62qrfrl9jaggm"
 var users_table_name = "users"
 
 var timestamp_columns = ", date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP " //+
