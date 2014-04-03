@@ -5,6 +5,7 @@ import (
 	"github.com/daragao/goLogin/db"
 	"github.com/daragao/goLogin/logger"
 	"net/http"
+	"os"
 )
 
 func Start() {
