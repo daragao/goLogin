@@ -1,1 +1,1 @@
-web: goGeteon
+web: goLogin
