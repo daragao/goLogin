@@ -1,6 +1,6 @@
 package main
 
-import "github.com/daragao/goLogin/rest"
+import "./rest"
 
 func main() {
 	rest.Start()

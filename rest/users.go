@@ -1,9 +1,9 @@
 package rest
 
 import (
-	"github.com/ant0ine/go-json-rest"
-	"github.com/daragao/goLogin/session"
-	"github.com/daragao/goLogin/users"
+	"../session"
+	"../users"
+	"github.com/ant0ine/go-json-rest/rest"
 	"net/http"
 	"strconv"
 )
