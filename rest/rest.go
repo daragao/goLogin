@@ -59,7 +59,7 @@ func StartServer() {
 
 func PreRoutingMiddleware(handler rest.HandlerFunc) rest.HandlerFunc {
 
-	return func(writer *rest.ResponseWriter, request *rest.Request) {
+	return func(writer rest.ResponseWriter, request *rest.Request) {
 
 		corsInfo := request.GetCorsInfo()
 

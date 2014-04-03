@@ -14,7 +14,7 @@ type Users struct {
 	Offset   int
 }
 
-func (self *Users) GetCurrentUser(w *rest.ResponseWriter, r *rest.Request) {
+func (self *Users) GetCurrentUser(w rest.ResponseWriter, r *rest.Request) {
 	currSession, _ := session.Get(r.Request)
 	userId := currSession.Values["userId"]
 	if userId != nil {
@@ -30,7 +30,7 @@ func (self *Users) GetCurrentUser(w *rest.ResponseWriter, r *rest.Request) {
 	rest.Error(w, "User not logged in: failed to get session", http.StatusNotFound)
 }
 
-func (self *Users) GetUserByID(w *rest.ResponseWriter, r *rest.Request) {
+func (self *Users) GetUserByID(w rest.ResponseWriter, r *rest.Request) {
 	idStr := r.PathParam("id")
 	id, err := strconv.Atoi(idStr)
 	userRow, err := users.GetUserByID(id)
@@ -41,7 +41,7 @@ func (self *Users) GetUserByID(w *rest.ResponseWriter, r *rest.Request) {
 	}
 }
 
-func (self *Users) GetAllUsers(w *rest.ResponseWriter, r *rest.Request) {
+func (self *Users) GetAllUsers(w rest.ResponseWriter, r *rest.Request) {
 	userRows, err := users.GetAllUsers(100, 0)
 	if err == nil {
 		w.WriteJson(userRows)
@@ -51,7 +51,7 @@ func (self *Users) GetAllUsers(w *rest.ResponseWriter, r *rest.Request) {
 }
 
 /* TODO: add some security to this thing! */
-func (self *Users) RegisterUser(w *rest.ResponseWriter, r *rest.Request) {
+func (self *Users) RegisterUser(w rest.ResponseWriter, r *rest.Request) {
 	userStruct := Users{}
 	err := r.DecodeJsonPayload(&userStruct)
 	if err != nil {
