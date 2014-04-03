@@ -1,9 +1,9 @@
 package users
 
 import (
-	"../auth"
-	"../db"
-	"../logger"
+	"github.com/daragao/goLogin/auth"
+	"github.com/daragao/goLogin/db"
+	"github.com/daragao/goLogin/logger"
 )
 
 type User struct {

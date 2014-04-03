@@ -1,11 +1,11 @@
 package rest
 
 import (
-	"../auth"
-	"../logger"
-	"../session"
-	"../users"
 	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/daragao/goLogin/auth"
+	"github.com/daragao/goLogin/logger"
+	"github.com/daragao/goLogin/session"
+	"github.com/daragao/goLogin/users"
 	"net/http"
 )
 

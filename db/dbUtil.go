@@ -1,9 +1,9 @@
 package db
 
 import (
-	"../logger"
 	"database/sql"
 	"fmt"
+	"github.com/daragao/goLogin/logger"
 	_ "github.com/lib/pq"
 	"reflect"
 	"strconv"
