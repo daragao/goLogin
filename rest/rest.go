@@ -25,7 +25,10 @@ func StartServer() {
 	rootUri := "/api/v1"
 
 	handler := rest.ResourceHandler{
-		PreRoutingMiddleware:     PreRoutingMiddleware,
+		//PreRoutingMiddleware:     PreRoutingMiddleware,
+		PreRoutingMiddlewares: []rest.Middleware{
+			&MyCorsMiddleware{},
+		},
 		EnableRelaxedContentType: true,
 	}
 
@@ -57,8 +60,10 @@ func StartServer() {
 	*/
 }
 
-func PreRoutingMiddleware(handler rest.HandlerFunc) rest.HandlerFunc {
+type MyCorsMiddleware struct{}
 
+//func PreRoutingMiddleware(handler rest.HandlerFunc) rest.HandlerFunc {
+func (mw *MyCorsMiddleware) MiddlewareFunc(handler rest.HandlerFunc) rest.HandlerFunc {
 	return func(writer rest.ResponseWriter, request *rest.Request) {
 
 		corsInfo := request.GetCorsInfo()
