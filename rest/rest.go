@@ -21,8 +21,6 @@ func StartDB() {
 }
 
 func StartServer() {
-	logger.INFO.Println("Starting server...")
-
 	rootUri := "/api/v1"
 
 	handler := rest.ResourceHandler{
@@ -48,7 +46,13 @@ func StartServer() {
 		rest.RouteObjectMethod("GET", rootUri+"/logout", &auth, "Logout"),
 	)
 
-	http.ListenAndServe(":"+os.Getenv("PORT"), &handler)
+	port := os.Getenv("PORT")
+	if len(port) == 0 {
+		port = "4000"
+	}
+	logger.INFO.Println("Starting server... on port:", port)
+	http.ListenAndServe(":"+port, &handler)
+	//http.ListenAndServe(":4000", &handler)
 	/*  // IF WE WANT TO USE NGINX
 	    listener, err := net.Listen("tcp", "localhost:8080")
 	    if err != nil {

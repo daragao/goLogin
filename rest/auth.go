@@ -16,12 +16,14 @@ func (authObj *Authentication) Login(writer rest.ResponseWriter, request *rest.R
 	userPostData := &Users{}
 	err := request.DecodeJsonPayload(userPostData)
 	if err != nil {
+		logger.ERRO.Println("JSON decoding failed: ", userPostData)
 		rest.Error(writer, "Could not register user: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	user, err := users.GetUserByUsername(userPostData.Username)
 	isLoggedIn := auth.EqualPass(user.GetPassword(), userPostData.Password)
 	if err != nil {
+		logger.ERRO.Println("GetUserByUsername failed: ", userPostData.Username)
 		rest.Error(writer, "Invalid login", http.StatusInternalServerError)
 		return
 	}
