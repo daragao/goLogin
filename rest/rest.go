@@ -29,17 +29,41 @@ func StartServer() {
 			&MyCorsMiddleware{},
 		},
 		EnableRelaxedContentType: true,
+		EnableStatusService:      true, //status
+		EnableResponseStackTrace: true,
+		EnableGzip:               true,
 	}
 
 	users := Users{}
+	bookmarks := Bookmarks{}
 	auth := Authentication{}
 
 	handler.SetRoutes(
-		//login and create session!
+
+		//status
+		&rest.Route{"GET", "/.status",
+			func(w rest.ResponseWriter, r *rest.Request) {
+				w.WriteJson(handler.GetStatus())
+			},
+		},
+
+		// bookmarks
+		rest.RouteObjectMethod("GET", rootUri+"/bookmarks",
+			&bookmarks, "GetAllBookmarks"),
+		rest.RouteObjectMethod("DELETE", rootUri+"/bookmarks/:id",
+			&bookmarks, "DeleteBookmarkByID"),
+		rest.RouteObjectMethod("GET", rootUri+"/bookmarks/:id",
+			&bookmarks, "GetBookmarkByID"),
+		rest.RouteObjectMethod("POST", rootUri+"/bookmarks",
+			&bookmarks, "InsertBookmark"),
+		// users
 		rest.RouteObjectMethod("GET", rootUri+"/users", &users, "GetAllUsers"),
-		rest.RouteObjectMethod("GET", rootUri+"/users/:id", &users, "GetUserByID"),
+		rest.RouteObjectMethod("GET", rootUri+"/users/:id",
+			&users, "GetUserByID"),
 		rest.RouteObjectMethod("POST", rootUri+"/users", &users, "RegisterUser"),
-		rest.RouteObjectMethod("GET", rootUri+"/login", &users, "GetCurrentUser"),
+		rest.RouteObjectMethod("GET", rootUri+"/login",
+			&users, "GetCurrentUser"),
+		// login
 		rest.RouteObjectMethod("POST", rootUri+"/login", &auth, "Login"),
 		rest.RouteObjectMethod("PUT", rootUri+"/login", &auth, "Login"),
 		rest.RouteObjectMethod("DELETE", rootUri+"/login", &auth, "Logout"),

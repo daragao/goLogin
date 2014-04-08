@@ -11,7 +11,6 @@ import (
 type Users struct {
 	Username string
 	Password string
-	Offset   int
 }
 
 func (self *Users) GetCurrentUser(w rest.ResponseWriter, r *rest.Request) {

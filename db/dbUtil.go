@@ -21,7 +21,7 @@ func connectDB() (con *sql.DB, err error) {
 func CreateTables() {
 	con, err := connectDB()
 	defer con.Close()
-	_, err = con.Exec(create_users_table)
+	_, err = con.Exec(create_users_table + create_boolmarks_table)
 	if err != nil {
 		logger.ERRO.Println("Failed to create DB: " + err.Error() + "\n\t" + create_users_table)
 	}
@@ -51,9 +51,7 @@ func InsertNewUser(username string, password []byte) (err error) {
 	return
 }
 
-func GetRowBy(tablename string,
-	colNames string,
-	attribName string,
+func GetRowBy(tablename string, colNames string, attribName string,
 	id interface{}) (row *sql.Row, err error) {
 	con, err := connectDB()
 	defer con.Close()
