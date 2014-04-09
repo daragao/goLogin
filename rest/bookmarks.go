@@ -3,8 +3,8 @@ package rest
 import (
 	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/daragao/goLogin/db"
-	"github.com/daragao/goLogin/session"
 	//"github.com/daragao/goLogin/logger"
+	"github.com/daragao/goLogin/session"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -30,12 +30,11 @@ func (self *Bookmarks) GetBookmarkByID(w rest.ResponseWriter, r *rest.Request) {
 
 func (self *Bookmarks) DeleteBookmarkByID(w rest.ResponseWriter, r *rest.Request) {
 	idStr := r.PathParam("id")
-	id, err := strconv.Atoi(idStr)
-	err = db.DeleteBookmark(id)
+	err := db.DeleteBookmark(idStr)
 	if err == nil {
 		w.WriteHeader(http.StatusNoContent)
 	} else {
-		rest.Error(w, "Bookmark not found: "+err.Error(), http.StatusNotFound)
+		rest.Error(w, "Bookmark not found: "+err.Error(), http.StatusInternalServerError)
 	}
 }
 

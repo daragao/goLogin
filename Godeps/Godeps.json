@@ -14,8 +14,8 @@
 		},
 		{
 			"ImportPath": "github.com/ant0ine/go-json-rest/rest",
-			"Comment": "v2.0.0-2-gd39a8e4",
-			"Rev": "d39a8e4a8cec2071b5ba6ac5eed7e489a23a3c43"
+			"Comment": "v2.0.0-4-gd6033e6",
+			"Rev": "d6033e6a821c724c406ea8dec756e7d665062443"
 		},
 		{
 			"ImportPath": "github.com/gorilla/context",

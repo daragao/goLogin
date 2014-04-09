@@ -54,15 +54,10 @@ func InsertBookmark(userId int, newsItemId string,
 	return
 }
 
-func DeleteBookmark(bookmarkId int) (err error) {
+func DeleteBookmark(newsItemId string) (err error) {
 	con, err := connectDB()
 	defer con.Close()
-	sqlStatement := "DELETE FROM bookmarks WHERE id = $1"
-	_, err = con.Exec(sqlStatement, bookmarkId)
-	if err == nil {
-		//userRow, err = GetUserByUsername(username)
-	} else {
-		//userRow = nil
-	}
+	sqlStatement := "DELETE FROM bookmarks WHERE newsitemid = $1"
+	_, err = con.Exec(sqlStatement, newsItemId)
 	return
 }

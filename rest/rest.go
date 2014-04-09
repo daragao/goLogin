@@ -54,6 +54,8 @@ func StartServer() {
 			&bookmarks, "DeleteBookmarkByID"),
 		rest.RouteObjectMethod("GET", rootUri+"/bookmarks/:id",
 			&bookmarks, "GetBookmarkByID"),
+		rest.RouteObjectMethod("PUT", rootUri+"/bookmarks/:id",
+			&bookmarks, "InsertBookmark"), // THIS IS TEMPORARY NEED TO FIX BACKBONE
 		rest.RouteObjectMethod("POST", rootUri+"/bookmarks",
 			&bookmarks, "InsertBookmark"),
 		// users
